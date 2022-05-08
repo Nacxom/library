@@ -42,7 +42,13 @@ function displayBooks(myLibrary) {
 		bookTitle.textContent = `Title: ${myLibrary[i].title}`;
 		bookAuthor.textContent = `Author: ${myLibrary[i].author}`;
 		bookPages.textContent = `Pages: ${myLibrary[i].pages}`;
-		bookRead.textContent = `Already read: ${myLibrary[i].read}`;
+
+		if(myLibrary[i].read) {
+			bookRead.textContent = `Already read: yes`;
+		} else {
+			bookRead.textContent = `Already read: no`;
+		}
+		
 	}
 }
 
@@ -50,7 +56,5 @@ function displayBooks(myLibrary) {
 const book1 = new Book(`1984`, `George Orwell`, 328, true);
 addBookToLibrary(book1);
 
-const book2 = new Book(`LOTR`, `Tolkien`, 657, true);
+const book2 = new Book(`LOTR`, `Tolkien`, 657, false);
 addBookToLibrary(book2);
-
-// crear appendChild ()
