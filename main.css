@@ -1,12 +1,34 @@
+/* GRID */
+.main-wrapper {
+	display: grid;
+	grid-template-areas: 
+	'header'
+	'addBook'
+	'bookList'
+	;
+	position: relative;
+	justify-content: stretch;
+	align-items: center;
+	text-align: center;
+}
+.header {
+	grid-area: header;
+}
+.addBook {
+	grid-area: addBook;
+}
+.bookList {
+	grid-area: bookList;
+	justify-content: center;
+}
+
+
 form {
 	display: flex;
 	flex-flow: column;
-	/* justify-content: center; */
-	align-items: center;
+	background-color: grey;
 
 	max-width: 300px !important;
-
-	background-color: grey;
 }
 input {
 	margin: 3px 0px;

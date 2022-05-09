@@ -46,11 +46,14 @@ function addBookToLibrary(book) {
 // Display all books from the library list array
 function displayBooks(myLibrary) {
 	const bookList = document.querySelector('.bookList');
+	// Reset List
 	bookList.innerHTML = ``;
 	for(let i = 0 ; i < myLibrary.length ; i++){
+		// book card. class card (style), col (bootstrap), data (id card to delete)
 		const bookCard = document.createElement('div');
-		bookCard.classList.add('card');
-		bookCard.classList.add('col');
+		bookCard.classList.add('card', 'col', 'data');
+		bookCard.dataset.id = `${i}`;
+		// book title, author, pages, read status
 		const bookTitle = document.createElement('div');
 		bookTitle.classList.add('card-title');
 		const bookAuthor = document.createElement('div');
@@ -59,12 +62,22 @@ function displayBooks(myLibrary) {
 		bookPages.classList.add('card-pages');
 		const bookRead = document.createElement('div');
 		bookRead.classList.add('card-read');
-		
+		// Remove book button element, class, text content and event listener
+		const bookRemove = document.createElement('button');
+		bookRemove.classList.add('card-btn','btn', 'btn-danger');
+		bookRemove.textContent = `Remove Book`;
+		bookRemove.addEventListener('click', () => {
+			myLibrary.splice(i,1);
+			displayBooks(myLibrary);
+		});
+
+
 		bookList.appendChild(bookCard);
 		bookCard.appendChild(bookTitle);
 		bookCard.appendChild(bookAuthor);
 		bookCard.appendChild(bookPages);
 		bookCard.appendChild(bookRead);
+		bookCard.appendChild(bookRemove)
 
 		bookTitle.textContent = `Title: ${myLibrary[i].title}`;
 		bookAuthor.textContent = `Author: ${myLibrary[i].author}`;
@@ -79,6 +92,7 @@ function displayBooks(myLibrary) {
 	}
 }
 
+
 // Style form
 
 // function showForm(){
@@ -91,6 +105,6 @@ function displayBooks(myLibrary) {
 // showFormBtn.addEventListener("click", showForm);
 // addBookBtn.addEventListener("click", hideForm);
 
-// displayBooks(myLibrary);
+
 
 
