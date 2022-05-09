@@ -1,3 +1,10 @@
+// DOM
+const form = document.querySelector('form');
+const showFormBtn = document.querySelector('#showFormBtn');	//Btn to show form
+const addBookBtn = document.querySelector('#addBookBtn'); //Btn to add book
+
+addBookBtn.addEventListener('click', addBookToLibrary); 
+
 // Library list array
 let myLibrary = [];
 
@@ -12,14 +19,34 @@ function Book(title, author, pages, read) {
 	};
 }
 
+
+
 // Store new books to the library list array
 function addBookToLibrary(book) {
-	myLibrary.push(book);
+	const bookTitle = document.querySelector('#bookTitle');
+	const bookAuthor = document.querySelector('#bookAuthor');
+	const bookPages = document.querySelector('#bookPages');
+	const bookRead = document.querySelector('#bookRead');
+	let bookReadBoolean;
+	if(bookRead.checked){
+		bookReadBoolean = true;
+	} else {
+		bookReadBoolean = false
+	}
+
+	const newBook = new Book(bookTitle.value, bookAuthor.value, bookPages.value, bookReadBoolean);
+
+	console.log(bookTitle.value);
+	console.log(bookAuthor.value);
+	console.log(bookPages.value);
+	
+	myLibrary.push(newBook);
+	displayBooks(myLibrary);
 }
 // Display all books from the library list array
 function displayBooks(myLibrary) {
 	const bookList = document.querySelector('.bookList');
-
+	bookList.innerHTML = ``;
 	for(let i = 0 ; i < myLibrary.length ; i++){
 		const bookCard = document.createElement('div');
 		bookCard.classList.add('card');
@@ -52,9 +79,18 @@ function displayBooks(myLibrary) {
 	}
 }
 
-// Manually adding some books for test
-const book1 = new Book(`1984`, `George Orwell`, 328, true);
-addBookToLibrary(book1);
+// Style form
 
-const book2 = new Book(`LOTR`, `Tolkien`, 657, false);
-addBookToLibrary(book2);
+// function showForm(){
+// 	form.setAttribute(`style`, `visibility: visible`);
+// }
+// function hideForm(){
+// 	form.setAttribute(`style`, `visibility: hidden`);
+// }
+
+// showFormBtn.addEventListener("click", showForm);
+// addBookBtn.addEventListener("click", hideForm);
+
+// displayBooks(myLibrary);
+
+

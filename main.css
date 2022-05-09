@@ -1,0 +1,20 @@
+form {
+	display: flex;
+	flex-flow: column;
+	/* justify-content: center; */
+	align-items: center;
+
+	max-width: 300px !important;
+
+	background-color: grey;
+}
+input {
+	margin: 3px 0px;
+}
+
+.bookList {
+	display: grid;
+    grid-template-columns: repeat(auto-fit,250px);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+}
