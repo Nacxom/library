@@ -51,3 +51,8 @@ input {
     grid-row-gap: 10px;
 	z-index: 1;
 }
+
+/* Buttons */
+.btn{
+	margin-bottom: 5px;
+}

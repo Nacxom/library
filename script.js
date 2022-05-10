@@ -18,9 +18,17 @@ function Book(title, author, pages, read) {
 	this.pages = pages;
 	this.read = read;
 	this.id = idcounter++;
-	this.info = function () {
-		return `ID:${idcounter}, Title:${title} by ${author}, ${pages} pages. Read? ${read}.`;
-	};
+}
+// Prototype functions
+Book.prototype.info = function(){
+	return `id:${idcounter}, Title:${this.title} by ${this.author}, ${this.pages} pages. Read? ${this.read}.`;
+}
+Book.prototype.readToggle = function(){
+	if(this.read){
+		this.read = false;
+	} else {
+		this.read = true;
+	}
 }
 
 // Store new books to the library list array
@@ -51,7 +59,12 @@ function displayBooks() {
 		bookAuthor.classList.add('card-author');
 		const bookPages = document.createElement('div');
 		bookPages.classList.add('card-pages');
-		const bookRead = document.createElement('div');
+		const bookRead = document.createElement('button');
+		bookRead.classList.add("card-btn", "btn");
+		bookRead.addEventListener('click', function (){
+			myLibrary[i].readToggle();
+			displayBooks();
+		});
 
 		// Remove Book
 		const bookRemove = document.createElement('button');
@@ -67,6 +80,7 @@ function displayBooks() {
 		bookCard.appendChild(bookRead);
 		bookCard.appendChild(bookRemove);
 
+		bookRead.dataset.id = `${myLibrary[i].id}`;
 		bookRemove.dataset.id = `${myLibrary[i].id}`;
 		bookTitle.textContent = `Title: ${myLibrary[i].title}`;
 		bookAuthor.textContent = `Author: ${myLibrary[i].author}`;
@@ -74,18 +88,20 @@ function displayBooks() {
 
 		if(myLibrary[i].read) {
 			bookRead.textContent = `Already read: yes`;
+			bookRead.classList.add("btn-success");
 		} else {
 			bookRead.textContent = `Already read: no`;
+			bookRead.classList.add("btn-danger");
 		}
+		
 	}
 }
 
+// Remove Book Function
 function removeBook(e){
 	myLibrary = myLibrary.filter((book) => book.id != `${Number(e.target.dataset.id)}`);
-	console.log(myLibrary);
 	displayBooks();
 }
-
 
 // Show Form Function
 function showForm(){
@@ -98,16 +114,18 @@ function hideForm(){
 }
 
 
+
+
 const lotr = new Book(`LOTR`, `TOLKIEN`, 1178, true);
-const aa = new Book(`a`,`a`,1,false);
-const bb = new Book(`b`,`b`,2,false);
-const cc = new Book(`c`,`c`,3,false);
-const dd = new Book(`d`,`d`,4,false);
+// const aa = new Book(`a`,`a`,1,false);
+// const bb = new Book(`b`,`b`,2,false);
+// const cc = new Book(`c`,`c`,3,false);
+// const dd = new Book(`d`,`d`,4,false);
 myLibrary.push(lotr);
-myLibrary.push(aa);
-myLibrary.push(bb);
-myLibrary.push(cc);
-myLibrary.push(dd);
+// myLibrary.push(aa);
+// myLibrary.push(bb);
+// myLibrary.push(cc);
+// myLibrary.push(dd);
 displayBooks();
 
 
