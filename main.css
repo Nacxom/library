@@ -29,6 +29,16 @@ form {
 	background-color: grey;
 
 	max-width: 300px !important;
+
+	transform: scale(0);
+
+	position: absolute;
+	left: 0; 
+	right: 0; 
+	margin-left: auto; 
+	margin-right: auto;
+	
+	z-index: 3;
 }
 input {
 	margin: 3px 0px;
@@ -39,4 +49,5 @@ input {
     grid-template-columns: repeat(auto-fit,250px);
     grid-column-gap: 10px;
     grid-row-gap: 10px;
+	z-index: 1;
 }

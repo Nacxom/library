@@ -16,18 +16,18 @@
 			<h1 class="header">Book Library</h1>
 			<!-- Add book section -->
 			<section class="addBook">
-				<a href="#"><button class="btn btn-primary" id="showFormBtn">Add Book</button></a>
-				<form action="" class="container rounded p-3 my-2">
+				<button id="showForm" class="btn btn-primary">New Book</button>
+				<form id="form" onsubmit="return false" action="" class="container rounded p-3 my-2 ms-auto">
 					<input id="bookTitle" type="text" placeholder="Title">
 					<input id="bookAuthor" type="text" placeholder="Author">
 					<input id="bookPages" type="number" placeholder="Pages">
 					<label><input id="bookRead" type="checkbox">Have you read it?</label>
-					<button class="btn btn-success" id="addBookBtn">Add Book</button>
+					<button href="#" class="btn btn-success" id="addBookBtn">Add Book</button>
+					
 				</form>
 			</section>
 			<!-- Book list section -->
 			<section class="bookList row row-cols-auto">
-	
 			</section>
 		</div>
 		

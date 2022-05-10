@@ -1,50 +1,42 @@
 // DOM
-const form = document.querySelector('form');
-const showFormBtn = document.querySelector('#showFormBtn');	//Btn to show form
+const form = document.querySelector('#form');
+const showFormBtn = document.querySelector('#showForm'); //Btn to show form
+showFormBtn.addEventListener('click', showForm);
 const addBookBtn = document.querySelector('#addBookBtn'); //Btn to add book
-
-addBookBtn.addEventListener('click', addBookToLibrary); 
+addBookBtn.addEventListener('click', storeBooks);
+addBookBtn.addEventListener('click', displayBooks);
+addBookBtn.addEventListener("click", hideForm);
 
 // Library list array
 let myLibrary = [];
 
 // Object constructor Books
+let idcounter = 0;	
 function Book(title, author, pages, read) {
 	this.title = title;
 	this.author = author;
 	this.pages = pages;
 	this.read = read;
+	this.id = idcounter++;
 	this.info = function () {
-		return `${title} by ${author}, ${pages} pages, ${read}.`;
+		return `ID:${idcounter}, Title:${title} by ${author}, ${pages} pages. Read? ${read}.`;
 	};
 }
 
-
-
 // Store new books to the library list array
-function addBookToLibrary(book) {
+function storeBooks() {
 	const bookTitle = document.querySelector('#bookTitle');
 	const bookAuthor = document.querySelector('#bookAuthor');
 	const bookPages = document.querySelector('#bookPages');
 	const bookRead = document.querySelector('#bookRead');
-	let bookReadBoolean;
-	if(bookRead.checked){
-		bookReadBoolean = true;
-	} else {
-		bookReadBoolean = false
-	}
-
-	const newBook = new Book(bookTitle.value, bookAuthor.value, bookPages.value, bookReadBoolean);
-
-	console.log(bookTitle.value);
-	console.log(bookAuthor.value);
-	console.log(bookPages.value);
-	
+	// Create New Book Object using object constructor
+	const newBook = new Book(bookTitle.value, bookAuthor.value, bookPages.value, bookRead.checked);
+	// Store new book to library
 	myLibrary.push(newBook);
-	displayBooks(myLibrary);
 }
+
 // Display all books from the library list array
-function displayBooks(myLibrary) {
+function displayBooks() {
 	const bookList = document.querySelector('.bookList');
 	// Reset List
 	bookList.innerHTML = ``;
@@ -52,7 +44,6 @@ function displayBooks(myLibrary) {
 		// book card. class card (style), col (bootstrap), data (id card to delete)
 		const bookCard = document.createElement('div');
 		bookCard.classList.add('card', 'col', 'data');
-		bookCard.dataset.id = `${i}`;
 		// book title, author, pages, read status
 		const bookTitle = document.createElement('div');
 		bookTitle.classList.add('card-title');
@@ -61,24 +52,22 @@ function displayBooks(myLibrary) {
 		const bookPages = document.createElement('div');
 		bookPages.classList.add('card-pages');
 		const bookRead = document.createElement('div');
-		bookRead.classList.add('card-read');
-		// Remove book button element, class, text content and event listener
+
+		// Remove Book
 		const bookRemove = document.createElement('button');
 		bookRemove.classList.add('card-btn','btn', 'btn-danger');
 		bookRemove.textContent = `Remove Book`;
-		bookRemove.addEventListener('click', () => {
-			myLibrary.splice(i,1);
-			displayBooks(myLibrary);
-		});
+		bookRemove.addEventListener('click', removeBook);
 
-
+		// Create New Book Card
 		bookList.appendChild(bookCard);
 		bookCard.appendChild(bookTitle);
 		bookCard.appendChild(bookAuthor);
 		bookCard.appendChild(bookPages);
 		bookCard.appendChild(bookRead);
-		bookCard.appendChild(bookRemove)
+		bookCard.appendChild(bookRemove);
 
+		bookRemove.dataset.id = `${myLibrary[i].id}`;
 		bookTitle.textContent = `Title: ${myLibrary[i].title}`;
 		bookAuthor.textContent = `Author: ${myLibrary[i].author}`;
 		bookPages.textContent = `Pages: ${myLibrary[i].pages}`;
@@ -88,23 +77,37 @@ function displayBooks(myLibrary) {
 		} else {
 			bookRead.textContent = `Already read: no`;
 		}
-		
 	}
 }
 
-
-// Style form
-
-// function showForm(){
-// 	form.setAttribute(`style`, `visibility: visible`);
-// }
-// function hideForm(){
-// 	form.setAttribute(`style`, `visibility: hidden`);
-// }
-
-// showFormBtn.addEventListener("click", showForm);
-// addBookBtn.addEventListener("click", hideForm);
+function removeBook(e){
+	myLibrary = myLibrary.filter((book) => book.id != `${Number(e.target.dataset.id)}`);
+	console.log(myLibrary);
+	displayBooks();
+}
 
 
+// Show Form Function
+function showForm(){
+	form.setAttribute('style', 'transform: scale(1)');
+}
+
+// Hide Form Function
+function hideForm(){
+	form.setAttribute('style', 'transform: scale(0)');
+}
+
+
+const lotr = new Book(`LOTR`, `TOLKIEN`, 1178, true);
+const aa = new Book(`a`,`a`,1,false);
+const bb = new Book(`b`,`b`,2,false);
+const cc = new Book(`c`,`c`,3,false);
+const dd = new Book(`d`,`d`,4,false);
+myLibrary.push(lotr);
+myLibrary.push(aa);
+myLibrary.push(bb);
+myLibrary.push(cc);
+myLibrary.push(dd);
+displayBooks();
 
 
